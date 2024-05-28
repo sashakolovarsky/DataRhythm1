@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { View, Text, Button, StyleSheet, Image } from 'react-native';
 import { Picker } from '@react-native-picker/picker'; // Updated import
 
-const logo = require("C:/Users/w10/QuestionnaireApp/assets/DataRhythmLogo.jpg"); // Import logo
+// const logo = require("C:/Users/w10/QuestionnaireApp/assets/DataRhythmLogo.jpg"); // Import logo
 
 export default function Question1Screen({ navigation }) {
   const [selectedHour, setSelectedHour] = useState('00');
@@ -19,7 +19,7 @@ export default function Question1Screen({ navigation }) {
 
   return (
     <View style={styles.container}>
-    <Image source={logo} style={styles.logo} resizeMode='contain' />
+    {/* <Image source={logo} style={styles.logo} resizeMode='contain' /> */}
     <Text style={styles.questionText}>When did you go to sleep?</Text>
       <View style={styles.pickerContainer}>
         <Picker
