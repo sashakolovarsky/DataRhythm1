@@ -1,24 +1,24 @@
-// screens/Question1Screen.js
+// screens/Question6Screen.js
 import React, { useState } from 'react';
 import { View, Text, Button, StyleSheet, Image } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
 const logo = require('../assets/DataRhythmLogo.jpg');
 
-export default function Question1Screen({ navigation }) {
-  const [selectedHour, setSelectedHour] = useState('22');
+export default function Question6Screen({ navigation }) {
+  const [selectedHour, setSelectedHour] = useState('20');
   const [selectedMinute, setSelectedMinute] = useState('00');
 
   const handleNext = () => {
     const selectedTime = `${selectedHour}:${selectedMinute}`;
     // Proceed to the next question
-    navigation.navigate('Question2');
+    navigation.navigate('ThankYou');
   };
 
   return (
     <View style={styles.container}>
       <Image source={logo} style={styles.logo} resizeMode='contain' />
-      <Text style={styles.questionText}>When did you go to sleep?</Text>
+      <Text style={styles.questionText}>What time was your last meal yesterday?</Text>
       <View style={styles.pickerContainer}>
         <Picker
           selectedValue={selectedHour}

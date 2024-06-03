@@ -1,33 +1,47 @@
 // screens/Question5Screen.js
 import React, { useState } from 'react';
-import { View, Text, Button, StyleSheet, TextInput } from 'react-native';
+import { View, Text, Button, StyleSheet, Image } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
+
+const logo = require('../assets/DataRhythmLogo.jpg');
 
 export default function Question5Screen({ navigation }) {
-  const [firstMeal, setFirstMeal] = useState('');
-  const [lastMeal, setLastMeal] = useState('');
+  const [selectedHour, setSelectedHour] = useState('09');
+  const [selectedMinute, setSelectedMinute] = useState('00');
+
+  const handleNext = () => {
+    const selectedTime = `${selectedHour}:${selectedMinute}`;
+    // Proceed to the next question
+    navigation.navigate('Question6');
+  };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.questionText}>When was your first and your last meal yesterday?</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="First meal"
-        placeholderTextColor="#999"
-        value={firstMeal}
-        onChangeText={setFirstMeal}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Last meal"
-        placeholderTextColor="#999"
-        value={lastMeal}
-        onChangeText={setLastMeal}
-      />
-      <Button
-        title="Finish"
-        onPress={() => navigation.navigate('ThankYou')}
-        disabled={!firstMeal || !lastMeal}
-      />
+      <Image source={logo} style={styles.logo} resizeMode='contain' />
+      <Text style={styles.questionText}>What time was your first meal yesterday?</Text>
+      <View style={styles.pickerContainer}>
+        <Picker
+          selectedValue={selectedHour}
+          style={styles.picker}
+          onValueChange={(itemValue) => setSelectedHour(itemValue)}
+          dropdownIconColor="white"
+        >
+          {[...Array(24).keys()].map((hour) => (
+            <Picker.Item key={hour} label={`${hour}`.padStart(2, '0')} value={`${hour}`.padStart(2, '0')} />
+          ))}
+        </Picker>
+        <Picker
+          selectedValue={selectedMinute}
+          style={styles.picker}
+          onValueChange={(itemValue) => setSelectedMinute(itemValue)}
+          dropdownIconColor="white"
+        >
+          {[...Array(60).keys()].map((minute) => (
+            <Picker.Item key={minute} label={`${minute}`.padStart(2, '0')} value={`${minute}`.padStart(2, '0')} />
+          ))}
+        </Picker>
+      </View>
+      <Button title="Next" onPress={handleNext} />
     </View>
   );
 }
@@ -35,24 +49,33 @@ export default function Question5Screen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start', 
     alignItems: 'center',
     backgroundColor: 'black',
+    paddingTop: 20, 
+  },
+  logo: {
+    width: 350,
+    marginBottom: 10, 
   },
   questionText: {
     fontSize: 24,
     color: 'white',
-    marginBottom: 20,
+    marginBottom: 20, 
     textAlign: 'center',
   },
-  input: {
-    width: '80%',
-    height: 50,
-    paddingHorizontal: 10,
-    borderColor: 'white',
-    borderWidth: 1,
-    borderRadius: 5,
+  pickerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 30, 
+  },
+  picker: {
+    width: 100,
+    height: 150, 
     color: 'white',
-    marginBottom: 20,
+    backgroundColor: '#00B5B9',
+    borderRadius: 10, 
+    marginHorizontal: 5,
   },
 });
+

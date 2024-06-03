@@ -1,32 +1,46 @@
 // screens/Question4Screen.js
 import React, { useState } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet, Image } from 'react-native';
 import Slider from '@react-native-community/slider';
 
+const logo = require('../assets/DataRhythmLogo.jpg');
+
 export default function Question4Screen({ navigation }) {
-  const [moodRating, setMoodRating] = useState(5);
+  const [moodRating, setMoodRating] = useState(3);
 
   return (
     <View style={styles.container}>
+      <Image source={logo} style={styles.logo} resizeMode='contain' />
       <Text style={styles.questionText}>How is your mood now?</Text>
-      <View style={styles.sliderContainer}>
-        <Text style={styles.sliderLabel}>Bad</Text>
-        <Slider
-          style={styles.slider}
-          minimumValue={0}
-          maximumValue={10}
-          minimumTrackTintColor="#FFFFFF"
-          maximumTrackTintColor="#000000"
-          value={moodRating}
-          onValueChange={setMoodRating}
-        />
-        <Text style={styles.sliderLabel}>Very Good</Text>
-      </View>
-      <Text style={styles.answerText}>{moodRating}</Text>
-      <Button
-        title="Next"
-        onPress={() => navigation.navigate('Question5')}
+      <Slider
+      style={styles.slider}
+      minimumValue={1}
+      maximumValue={5}
+      step={1}
+      minimumTrackTintColor="#FFFFFF"
+      maximumTrackTintColor="#000000"
+      value={moodRating}
+      onValueChange={setMoodRating}
       />
+        <View style={styles.scaleContainer}>
+        <View style={styles.labelContainer}>
+          <Text style={[styles.scaleLabel, styles.numberLabel]}>1</Text>
+          <Text style={styles.scaleLabel}>Bad</Text>
+        </View>
+        {[2, 3, 4].map((value) => (
+        <Text key={value} style={styles.scaleLabel}>{value}</Text>
+        ))}
+        <View style={styles.labelContainer}>
+          <Text style={[styles.scaleLabel, styles.numberLabel]}>5</Text>
+          <Text style={styles.scaleLabel}>Great</Text>
+        </View>
+      </View>
+      <View style={[styles.buttonContainer, { marginBottom: 50 }]}>
+        <Button
+          title="Next"
+          onPress={() => navigation.navigate('Question5')}
+        />
+      </View>
     </View>
   );
 }
@@ -34,32 +48,44 @@ export default function Question4Screen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start', 
     alignItems: 'center',
     backgroundColor: 'black',
+    paddingTop: 20, 
+  },
+  logo: {
+    width: 350,
+    marginBottom: 10, 
   },
   questionText: {
     fontSize: 24,
     color: 'white',
-    marginBottom: 20,
+    marginBottom: 20, 
     textAlign: 'center',
   },
-  sliderContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '80%',
-  },
-  sliderLabel: {
-    fontSize: 18,
-    color: 'white',
-  },
   slider: {
-    flex: 1,
+    width: 300,
+    height: 40,
+    marginBottom: 10,
   },
-  answerText: {
-    fontSize: 20,
-    color: 'white',
+  scaleContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    width: '80%',
     marginBottom: 20,
+  },
+  scaleLabel: {
+    fontSize: 16,
+    color: 'white',
+  },
+  labelContainer: {
+    alignItems: 'center',
+  },
+  numberLabel: {
+    marginBottom: 5,
+  },
+  buttonContainer: {
+    width: '80%',
   },
 });
